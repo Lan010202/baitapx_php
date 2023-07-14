@@ -1,0 +1,57 @@
+<?php
+abstract class Database {
+    protected $host;
+    protected $username;
+    protected $password;
+    protected $database;
+
+    public function __construct($host, $username, $password, $database) {
+        $this->host = $host;
+        $this->username = $username;
+        $this->password = $password;
+        $this->database = $database;
+    }
+
+    abstract public function connect();
+    abstract public function query($sql);
+    abstract public function disconnect();
+}
+
+class MySQLDatabase extends Database {
+    public function connect() {
+        print("Connect to MySQL database");
+    }
+
+    public function query($sql) {
+        print("Query MySQL database with SQL: " . $sql);
+    }
+
+    public function disconnect() {
+        print("Disconnect from MySQL database");
+    }
+}
+
+class PostgreSQLDatabase extends Database {
+    public function connect() {
+        print("Connect to PostgreSQL database");
+    }
+
+    public function query($sql) {
+        print("Query PostgreSQL database with SQL: " . $sql);
+    }
+
+    public function disconnect() {
+        print("Disconnect from PostgreSQL database");
+    }
+}
+
+$mysql = new MySQLDatabase("localhost", "root", "", "test");
+$mysql->connect(); // Connect to MySQL database
+$mysql->query("SELECT * FROM users"); // Query MySQL database with SQL: SELECT * FROM users
+$mysql->disconnect(); // Disconnect from MySQL database
+
+$postgresql = new PostgreSQLDatabase("localhost", "root", "", "test");
+$postgresql->connect(); // Connect to PostgreSQL database
+$postgresql->query("SELECT * FROM users"); // Query PostgreSQL database with SQL: SELECT * FROM users
+$postgresql->disconnect(); // Disconnect from PostgreSQL database
+?>
